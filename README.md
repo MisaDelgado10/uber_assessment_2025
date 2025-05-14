@@ -59,3 +59,38 @@ Uber assessment for an Automation & Analyst position
 
 --------
 
+# Uber Assessment 2025 – Python Project Template
+
+This repository contains a clean and reproducible Python 3.8 project setup using:
+
+- `conda` for environment management
+- `poetry` for dependency management
+- `cookiecutter` for project scaffolding
+- `flake8`, `black`, `isort` for code formatting and linting
+- `pre-commit` for enforcing code quality before commits
+
+## 🚀 Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/MisaDelgado10/uber_assessment_2025.git
+cd uber_assessment_2025
+
+conda create -n uber2025 python=3.9
+conda activate uber2025
+
+pip install poetry
+
+poetry install
+
+pre-commit install
+
+# Format code
+black .
+
+# Sort imports
+isort .
+
+# Run style checks
+flake8 .
