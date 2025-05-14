@@ -46,8 +46,27 @@ city_info AS (
     ON dc.city_id = csr.city_id
 )
 
--- Unión final
+INSERT INTO AA_tables.weekly_delivery_metrics (
+  week_start_date,
+  week_year,
+  territory,
+  country_name,
+  workflow_uuid,
+  driver_uuid,
+  delivery_trip_uuid,
+  courier_flow,
+  restaurant_offered_timestamp_utc,
+  order_final_state_timestamp_local,
+  eater_request_timestamp_local,
+  geo_archetype,
+  merchant_surface,
+  pickup_distance_km,
+  dropoff_distance_km,
+  atd
+)
 SELECT 
+  ({{ ds }}::DATE - INTERVAL '7 days') AS week_start_date,
+  TO_CHAR({{ ds }}::DATE - INTERVAL '7 days', 'IYYY-"W"IW') AS week_year,
   ci.territory, 
   ci.country_name, 
   td.workflow_uuid,
@@ -60,10 +79,13 @@ SELECT
   td.geo_archetype, 
   td.merchant_surface,
   db.pickup_distance_km,
-  db.travel_distance_km as dropoff_distance_km,
+  db.travel_distance_km AS dropoff_distance_km,
   EXTRACT(EPOCH FROM (td.order_final_state_timestamp_local - td.eater_request_timestamp_local)) / 60 AS atd
 FROM delivery_base db
 LEFT JOIN trip_details td
   ON db.jobuuid = td.delivery_trip_uuid
 LEFT JOIN city_info ci
-  ON db.cityid = ci.city_id;
+  ON db.cityid = ci.city_id
+WHERE td.restaurant_offered_timestamp_utc::DATE >= ({{ ds }}::DATE - INTERVAL '7 days')
+  AND td.restaurant_offered_timestamp_utc::DATE < {{ ds }}::DATE
+  AND ci.country_name = 'MX';
