@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
+from datetime import timedelta
 
 def add_features(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Adds engineered features at the delivery level for Uber Eats data.
+    Adds engineered features at the delivery level for Uber Eats data,
+    including weather features (rain and temperature) aggregated por mes y territorio.
 
     Parameters:
         df (pd.DataFrame): Cleaned delivery-level data.
@@ -13,6 +15,11 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df = df.copy()
+
+    # --- Leer datasets de clima ---
+    # Reemplaza estos paths con los correctos
+    rain = pd.read_csv('../data/external/weather/rain.csv')          # columnas: territory, year_month, rain
+    temp_mean = pd.read_csv('../data/external/weather/temp_mean.csv') # columnas: territory, year_month, temp
 
     # --- Convert timestamps ---
     df["eater_request_timestamp_local"] = pd.to_datetime(df["eater_request_timestamp_local"])
@@ -30,6 +37,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
         labels=["night", "morning", "afternoon", "evening", "night"],
         ordered=False
     )
+
+    df["order_time_of_day_encoded"] = df["order_time_of_day"].astype("category").cat.codes
 
     df["delivery_duration_minutes"] = (
         df["order_final_state_timestamp_local"] - df["restaurant_offered_timestamp_local"]
@@ -89,5 +98,17 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df["speed_below_threshold"] = (
         df["estimated_speed_kmh"] < 10
     ).astype(int)
+
+    # --- Extraer año y mes para join con datos de clima ---
+    df['year_month'] = df['restaurant_offered_timestamp_local'].dt.to_period('M').astype(str)
+
+    # --- Merge con datos de lluvia ---
+    df = df.merge(rain, how='left', on=['territory', 'year_month'])
+
+    # --- Merge con datos de temperatura ---
+    df = df.merge(temp_mean, how='left', on=['territory', 'year_month'])
+
+    # --- Opcional: eliminar columna auxiliar ---
+    df.drop(columns=['year_month'], inplace=True)
 
     return df
