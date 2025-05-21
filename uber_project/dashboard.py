@@ -131,9 +131,7 @@ def main() -> None:
     )
 
     # Load data
-    data_path = (
-        "../data/processed/BC_A&A_with_ATD_processed.parquet"  # Update this path to your file
-    )
+    data_path = "../data/processed/processed_data.parquet"  # Update this path to your file
     df = load_data(data_path)
     df["eater_request_timestamp_local"] = pd.to_datetime(df["eater_request_timestamp_local"])
 
