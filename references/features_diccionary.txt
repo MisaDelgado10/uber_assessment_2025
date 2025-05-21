@@ -1,0 +1,77 @@
+⏱️ Time-based Features
+
+| Feature             | Description                                                                   | Relationship with ATD                                                   |
+| ------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `order_hour`        | Hour of the day when the order was placed.                                    | Peak hours may increase ATD due to traffic or higher demand.            |
+| `order_dayofweek`   | Day of the week the order was placed (e.g., Monday=0).                        | Weekends or specific weekdays may correlate with longer delivery times. |
+| `order_weekend`     | Boolean flag indicating if the order was placed on a weekend.                 | Deliveries on weekends may have different ATD patterns.                 |
+| `order_time_of_day` | Time category (e.g., Morning, Afternoon, Evening, Night).                     | Helps identify delivery delays at different times of day.               |
+| `is_peak_hour`      | Boolean flag for orders placed during peak demand hours (e.g., lunch/dinner). | Likely associated with longer ATD due to traffic and demand.            |
+
+
+📍 Distance & Route Features
+
+| Feature             | Description                                              | Relationship with ATD                                                   |
+| ------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `pickup_distance`   | Distance (km) between restaurant and courier’s location. | Longer pickup distances may increase total delivery time.               |
+| `dropoff_distance`  | Distance (km) between restaurant and customer.           | Larger dropoff distances may naturally increase ATD.                    |
+| `total_distance_km` | Sum of pickup_distance and dropoff_distance.             | Represents the total travel distance, which correlates with ATD.        |
+| `distance_ratio`    | Ratio of pickup_distance to dropoff_distance.            | High ratios may suggest courier inefficiency or poor dispatching logic. |
+
+
+👨‍🍳 Restaurant & Preparation Features
+
+| Feature                    | Description                                               | Relationship with ATD                                           |
+| -------------------------- | --------------------------------------------------------- | --------------------------------------------------------------- |
+| `preparation_time_minutes` | Time in minutes the restaurant took to prepare the order. | Directly contributes to ATD.                                    |
+| `relative_prep_time`       | Ratio of preparation time to total ATD.                   | High values suggest prep time is a major contributor to delays. |
+| `merchant_surface`         | Platform used by restaurant (Tablet, POS, Web, etc.).     | May reflect operational efficiency of the restaurant.           |
+| `merchant_surface_encoded` | Numerical encoding of merchant\_surface.                  | Useful for ML models.                                           |
+
+
+👤 Courier Features
+
+| Feature                         | Description                                      | Relationship with ATD                                        |
+| ------------------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| `courier_flow`                  | Type of courier (Motorbike, Fleet, UberX, etc.). | Impacts delivery speed depending on mode of transport.       |
+| `courier_flow_encoded`          | Encoded version of courier_flow.                 | For ML modeling.                                             |
+| `courier_flow_complexity_score` | Heuristic score based on courier type.           | Higher complexity might indicate slower delivery capability. |
+
+
+🛣️ Traffic and Delivery Efficiency Indicators
+
+| Feature                   | Description                                                                    | Relationship with ATD                                         |
+| ------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| `estimated_speed_kmh`     | Estimated speed = total_distance_km / ATD (converted to hours).                | Lower values may indicate traffic congestion or inefficiency. |
+| `is_short_trip_long_time` | Boolean flag where short trips took long time (distance < 1km & ATD > 40 min). |  Likely reflects traffic or operational delays.               |
+| `long_delivery_flag`      | Boolean flag for deliveries with distance above a threshold (distance > 10km ).     | Used to identify problematic deliveries.                      |
+
+
+🌍 Geographic Features
+
+| Feature                   | Description                                    | Relationship with ATD                                                          |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------ |
+| `geo_archetype`           | Marketing segmentation of the delivery area.   | Certain archetypes may have longer delivery times due to urban density.        |
+| `geo_archetype_encoded`   | Encoded version of geo_archetype.              | Useful for ML tasks.                                                           |
+| `territory`               | Subregion within a country or region.          | Can affect delivery performance based on urban layout or operational maturity. |
+| `territory_encoded`       | Encoded version of territory.                  | Used for predictive models.                                                    |
+| `region` / `country_name` | Higher-level regional and national indicators. | May not vary here but useful in broader datasets.                              |
+
+
+📊 Aggregate / Volume Features
+
+| Feature              | Description                                                     | Relationship with ATD                                       |
+| -------------------- | --------------------------------------------------------------- | ----------------------------------------------------------- |
+| `number_of_orders`   | Count of total orders in the dataset or grouped by time window. | Higher volume may relate to longer ATD during busy periods. |
+| `number_of_couriers` | Number of unique couriers active in a given window.             | Courier scarcity may increase delivery time.                |
+
+
+⚠️ Delay Classification Features
+
+| Feature                    | Description                                            | Relationship with ATD                 |
+| -------------------------- | ------------------------------------------------------ | ------------------------------------- |
+| `number_of_late_orders`    | Number of deliveries with long\_delivery\_flag = True. | Used to measure delivery reliability. |
+| `number_of_on_time_orders` | Number of deliveries not marked as late.               | Indicates operational efficiency.     |
+
+Weather features were taken from "Sistema Meteorologico Nacional"
+Source: https://smn.conagua.gob.mx/es/climatologia/temperaturas-y-lluvias/resumenes-mensuales-de-temperaturas-y-lluvias

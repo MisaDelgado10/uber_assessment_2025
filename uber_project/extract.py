@@ -1,6 +1,8 @@
-import pandas as pd
 from pathlib import Path
 from typing import Union
+
+import pandas as pd
+
 
 def extract_data(file_path: Union[str, Path]) -> pd.DataFrame:
     """
@@ -15,7 +17,7 @@ def extract_data(file_path: Union[str, Path]) -> pd.DataFrame:
     -------
     pd.DataFrame
         Data loaded into a pandas DataFrame.
-    
+
     Raises
     ------
     ValueError
@@ -33,5 +35,5 @@ def extract_data(file_path: Union[str, Path]) -> pd.DataFrame:
         df = pd.read_parquet(file_path)
     else:
         raise ValueError(f"Unsupported file extension: {ext}. Only .csv and .parquet supported.")
-    
+
     return df
