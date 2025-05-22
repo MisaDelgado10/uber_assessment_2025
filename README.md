@@ -71,7 +71,7 @@ This repository contains a clean and reproducible Python 3.9 project setup using
 
 ## 🚀 Quick Start
 
-### 1. Clone the repository
+### 1. Clone the repository and Run Dashboard
 
 ```bash
 
