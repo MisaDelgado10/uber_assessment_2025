@@ -75,25 +75,6 @@ This repository contains a clean and reproducible Python 3.8 project setup using
 
 ```bash
 
-
-conda create -n uber2025 python=3.9
-conda activate uber2025
-
-pip install poetry
-
-poetry install
-
-pre-commit install
-
-# Format code
-black .
-
-# Sort imports
-isort .
-
-# Run style checks
-flake8 .
-
 1. git clone https://github.com/MisaDelgado10/uber_assessment_2025.git
 2. cd uber_assessment_2025
 3. conda create -n uber_project python=3.9
@@ -104,3 +85,12 @@ flake8 .
 8. pip install -r requirements.txt 
 9. cd uber_project
 10. streamlit run dashboard.py
+
+# Format code
+black .
+
+# Sort imports
+isort .
+
+# Run style checks
+flake8 .
