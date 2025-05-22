@@ -22,9 +22,7 @@ Uber assessment for an Automation & Analyst position
 │
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+├── notebooks          <- Jupyter notebooks for EDA, Data Cleaning and Processing
 │
 ├── pyproject.toml     <- Project configuration file with package metadata for 
 │                         uber_project and configuration for tools like black
