@@ -96,11 +96,11 @@ flake8 .
 
 1. git clone https://github.com/MisaDelgado10/uber_assessment_2025.git
 2. cd uber_assessment_2025
-3. Conda create -n uber_project python=3.9
-4. conda activate uber2025
+3. conda create -n uber_project python=3.9
+4. conda activate uber_project
 5. pip install poetry
 6. pip install pre-commit
 7. pre-commit install
-8. Install the dependencies using the requirements.txt 
+8. pip install -r requirements.txt 
 9. cd uber_project
 10. streamlit run dashboard.py
