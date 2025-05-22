@@ -92,12 +92,28 @@ isort .
 
 # Run style checks
 flake8 .
-```
 
+```
 ### 2. Run Streamlit Dashboard
 
 ```bash
 
 1. cd uber_project
 2. streamlit run dashboard.py
+```
+
+### 3. About Data extraction
+
+```bash
+
+1. 
+2. 
+```
+
+### 4. About Predictive Modeling
+
+```bash
+
+1. 
+2. 
 ```
