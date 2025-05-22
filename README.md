@@ -61,7 +61,7 @@ Uber assessment for an Automation & Analyst position
 
 # Uber Assessment 2025 – Python Project Template
 
-This repository contains a clean and reproducible Python 3.8 project setup using:
+This repository contains a clean and reproducible Python 3.9 project setup using:
 
 - `conda` for environment management
 - `poetry` for dependency management
