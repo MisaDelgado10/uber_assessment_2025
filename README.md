@@ -71,7 +71,7 @@ This repository contains a clean and reproducible Python 3.9 project setup using
 
 ## 🚀 Quick Start
 
-### 1. Clone the repository and Run Dashboard
+### 1. Clone the repository and configure project
 
 ```bash
 
@@ -83,8 +83,6 @@ This repository contains a clean and reproducible Python 3.9 project setup using
 6. pip install pre-commit
 7. pre-commit install
 8. pip install -r requirements.txt 
-9. cd uber_project
-10. streamlit run dashboard.py
 
 # Format code
 black .
@@ -94,3 +92,10 @@ isort .
 
 # Run style checks
 flake8 .
+
+### 1. Run Streamlit Dashboard
+
+```bash
+
+1. cd uber_project
+2. streamlit run dashboard.py
