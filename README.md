@@ -39,22 +39,24 @@ Uber assessment for an Automation & Analyst position
 │
 ├── setup.cfg          <- Configuration file for flake8
 │
-└── uber_project   <- Source code for use in this project.
+└── uber_project       <- Source code for use in this project.
     │
-    ├── __init__.py             <- Makes uber_project a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
+    ├── airflow_dags                
+    │   └── weekly_delivery_metrics.py          <- Airflow DAG to calculate main delivery metrics on a weekly basis
     ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
+    │   ├── models.ipynb                        <- Jupyter notebook that contains the predictive model    
+    │   ├── predict.py                          <- Code to run model inference with trained models          
+    │   └── train.py                            <- Code to train models
     │
-    └── plots.py                <- Code to create visualizations
+    ├── __init__.py                             <- Makes uber_project a Python module
+    │
+    ├── dashboard.py                            <- Python script that creates the Streamlit dashboard
+    │
+    ├── extract.py                              <- Python script that extracts the raw data for analysis, dashboarding and modeling
+    │
+    ├── features.py                             <- Python script to create features for dashboarding and modeling
+    │
+    └── transform.py                            <- Python script to transform features for modeling
 ```
 
 --------
