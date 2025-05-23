@@ -106,14 +106,12 @@ flake8 .
 
 ```bash
 
-1. 
-2. 
+1. Please check the notebooks folder and the sql folder in uber_project/sql/
 ```
 
 ### 4. About Predictive Modeling
 
 ```bash
 
-1. 
-2. 
+1. Please check the jupyter notebook on uber_project folder named as models.ipynb
 ```
